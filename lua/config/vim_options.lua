@@ -6,9 +6,6 @@ vim.g.mapleader = " "
 -- Set leader key to space
 vim.g.maplocalleader = " "
 
--- Enable Nerd font
-vim.g.have_nerd_font = true
-
 -- Number of spaces a tab represents
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -29,6 +26,9 @@ vim.opt.breakindent = true
 -- Disable text wrap
 vim.opt.wrap = false
 
+-- Enable global clipborad
+vim.opt.clipboard = "unnamedplus"
+
 -- Speeds up plugin wait time
 vim.opt.updatetime = 50
 
@@ -37,7 +37,6 @@ vim.opt.undofile = true
 -----------------------------------------------------------
 -- UI Config
 -----------------------------------------------------------
-
 -- Enable line numbers
 vim.opt.nu = true
 
@@ -60,22 +59,23 @@ vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 
 -- Always keep 10 lines above/below cursor unless at start/end of file
-vim.opt.scrolloff = 10 
+vim.opt.scrolloff = 10
 
--- Enable only the vertical split
+-- Better splitting
+vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Faster scrolling
 vim.opt.lazyredraw = true
 
--- Highlights the yanked content 
+-- Highlight yank
 vim.api.nvim_create_autocmd("textyankpost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-	pattern = "*",
-	desc = "highlight selection on yank",
-	callback = function()
-		vim.highlight.on_yank({ timeout = 200, visual = true })
-	end,
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+  pattern = "*",
+  desc = "highlight selection on yank",
+  callback = function()
+    vim.highlight.on_yank({ timeout = 200, visual = true })
+  end,
 })
 
 -----------------------------------------------------------
@@ -87,3 +87,18 @@ vim.opt.incsearch = true
 -- Ignore case for searches
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- Diagnostic display inline
+vim.diagnostic.config({
+  virtual_text = true,
+  underline = true
+})
+
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" } }
+    }
+  }
+})
