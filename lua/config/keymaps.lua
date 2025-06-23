@@ -44,6 +44,14 @@ vim.keymap.set("n", "<leader>Y", '"+Y')
 -- Open buffer to the right
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
 
+
+-----------------------------------------------------------
+-- Insert Mode
+-----------------------------------------------------------
+-- jj escapes from insert mode to normal mode
+vim.keymap.set("i", "jj", "<Esc>")
+vim.keymap.set("i", "jk", "<Esc>")
+
 -----------------------------------------------------------
 -- Visual Mode
 -----------------------------------------------------------
